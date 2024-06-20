@@ -1,29 +1,31 @@
-# About
+# 关于
 
-Welcome to my personal blog! Here, I share my thoughts, experiences, and insights on various topics. Feel free to explore and engage with the content.
+​	欢迎来到我的博客! 我将在这里分享我的想法、经历和对人生的看法还有一些生活琐事。
 
-### About Me
 
-I am James, a passionate writer and avid learner. I have a keen interest in technology, programming, and all things related to software development. Through this blog, I aim to share my knowledge and experiences with the community.
 
-### Topics Covered
+### 关于我
 
-On this blog, you can expect to find articles and tutorials on a wide range of topics, including:
+​	我是夕阳，24岁，未婚。目前是一个打工人，我每天最晚六点下班。 偶尔喝酒，晚上十二点上床，保证睡足6.5个小时。在睡前我不会喝一杯温牛奶，也不会做柔软操，上了床，很久才能睡着。
+*** 目前博客刚起步，比较粗糙。***
 
-- Programming languages and frameworks
-- Web development
-- Software engineering best practices
-- Tips and tricks for developers
-- Personal anecdotes and reflections
+### 主要内容
+
+- WEB 开发
+  - 主要使用Kotlin和SpringBoot3
+- Python
+  - 主要做爬虫。有时候用来解决处理可以自动化的问题
+- 游戏
+  - 逃离塔科夫， 英雌联盟，上古卷轴5，某二字开放世界游戏 
+- 发癫
 
 ### Contact Me
 
-If you have any questions, suggestions, or just want to say hello, feel free to reach out to me. You can contact me through the following channels:
+如果你对某些内容感兴趣，或者有你的独特的看法想与我交流，或者单纯想打个招呼，请随意发邮件给我:
 
 - Email: James-Heller@Outlook.com
-- Twitter: [@jamesblog](https://twitter.com/jamesblog)
-- LinkedIn: [James Blog](https://www.linkedin.com/in/jamesblog)
 
-Thank you for visiting my blog. I hope you find the content valuable and enjoyable!
 
-Happy reading!
+再次感谢您来到我的博客。 我希望您能在这里找到有价值或者能让你感到愉悦的东西!
+
+祝阅读愉快！
