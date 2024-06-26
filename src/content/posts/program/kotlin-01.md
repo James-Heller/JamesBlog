@@ -12,7 +12,7 @@ draft: false
 
 ## 什么是委托模式
 
-&emsp;作为一个狂热的Kotlin粉丝， 在工作摸鱼或者是闲暇时间研究Kotlin是我的乐趣所在。 今日在网上冲浪时看到一个关于Kotlin高级特性的文章。其中提到了关键字 `by`。 这引起了我的兴趣，经过相关搜索发现`by`是用于实现委托的关键字。
+&emsp;作为一个狂热的Kotlin粉丝， 在工作摸鱼或者是闲暇时间研究Kotlin是我的乐趣所在。 今日在网上冲浪时看到一个关于Kotlin高级特性的文章。其中提到了关键字 `by`。 这引起了我的兴趣，经过相关搜索，我发现by是用于实现委托的关键字。
 &emsp;那么问题就来了，什么是委托？
 ***在面向对象编程中，设计模式是帮助我们解决常见问题的模板。委托模式就是设计模式其中的一种。***
 
@@ -28,10 +28,10 @@ draft: false
 #### 案例1
 
 那么我们来考虑这样一个场景：你有一个`Logger`接口用来生成日志和一个`ConsoleLogger`类实现了这个接口。现在，万恶的产品经理来了。
->“为了保证任何对于数据的操作都是可溯源的，我们需要将所有修改订单的操作在写入到一个文件中。”
+>“为了保证对数据的任何操作都是可溯源的，我们需要将所有修改订单的操作在写入到一个文件中。”
 > ———— 产品经理如是说
 
-*我知道这是一个不太恰当的例子因为重定向IO流可以更快捷的实现这个需求。*
+*我知道这是一个不太恰当的例子，因为重定向IO流可以更快捷的实现这个需求。*
 &emsp;使用委托模式，你可以创建一个新的`LoggingPrinter`类，该类在执行打印任务前后添加日志记录，而不改变`ConsoleLogger`类的代码。
 
 ```kotlin
@@ -68,7 +68,7 @@ class FileLogger(private val logger: Logger) : Logger by logger {
 
 #### 案例2
 
-&emsp;在通用商城的开发中，不同的商品都有不同的计价方式，例如：按照个数、长度、重量等。每一种的计费逻辑都是不同的。但是这些商品的价格组成部分又有一些相同的组成部分，例如：运费，优惠券减扣，积分减扣等。为每一种计价方式的商品写一份同样的通用价格优惠代码是非常令人感到折磨的。在这个时候委托模式就可以解决我们的问题。
+&emsp;在通用商城的开发中，不同的商品都有不同的计价方式，例如：按个数、长度、重量等计价。每一种的计费逻辑都是不同的。但是这些商品的价格组成部分又有一些相同的组成部分，例如：运费，优惠券减扣，积分减扣等。为每一种计价方式的商品写一份同样的通用价格优惠代码是非常令人感到折磨的。此时，委托模式可以解决我们的问题。
 
 &emsp;首先我们定义一个`Calculable`接口，里面的`getPrice`方法用于计算所购商品的价格。因为每种商品的价格计算方式不一样所以是抽象方法。将这个价格与积分减扣、优惠券减扣、运费相加就可以得到用户最终需要支付的金额。
 
@@ -146,7 +146,7 @@ fun main(){
     val iPhonePriceService = GenericPriceService(iPhonePriceFunction)
     val silksPriceService = GenericPriceService(silksPriceFunction)
 
-    //假定有Silks，iPhone两个class都继承于Goods
+    //假定有Silks，iPhone两个类都继承自Goods
     // 接收下单商品
     val orderItems = listOf<Goods>()
 
@@ -154,9 +154,9 @@ fun main(){
 
     orderItems.forEach{ item->
         when(item){
-            item is Silks -> totalPrice += silksPriceService.getTotalPrice(item.length)
+            item is Silks -> totalPrice += silksPriceService.getTotalPrice(item.quantity)
 
-            item is iPhone -> totalPrice += iPhonePriceService.getTotalPrice(item.length)
+            item is iPhone -> totalPrice += iPhonePriceService.getTotalPrice(item.quantity)
             else -> throw RuntimeException("未知商品类型")
         }
     }
