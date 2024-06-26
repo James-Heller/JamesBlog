@@ -25,7 +25,9 @@ draft: false
 &emsp;对于我这种通过具体场景来学习知识的人，在不知道所学的东西是做什么的情况下，是很难学习下去的。
 > "学习任何知识的最佳途径都是亲自动手去做。" —— 理查德·费曼
 
-&emsp;那么我们来考虑这样一个场景：你有一个`Logger`接口用来生成日志和一个`ConsoleLogger`类实现了这个接口。现在，万恶的产品经理来了。
+#### 案例1
+
+那么我们来考虑这样一个场景：你有一个`Logger`接口用来生成日志和一个`ConsoleLogger`类实现了这个接口。现在，万恶的产品经理来了。
 >“为了保证任何对于数据的操作都是可溯源的，我们需要将所有修改订单的操作在写入到一个文件中。”
 > ———— 产品经理如是说
 
@@ -63,6 +65,108 @@ class FileLogger(private val logger: Logger) : Logger by logger {
 
 在这个例子中，`FileLogger`通过委托`logger`对象，接管了`Logger`接口的`log`方法，并在打印前后添加了日志记录。这样的设计不仅保持了`ConsoleLogger`的简洁性，也使得日志功能的添加变得非常灵活和可重用。 只需要在需要将日志写入文件的模块用`FileLogger`
 替代`ConsoleLogger`即可完成将对应模块的日志写入文件而不影响其他使用ConsoleLogger的模块。
+
+#### 案例2
+
+&emsp;在通用商城的开发中，不同的商品都有不同的计价方式，例如：按照个数、长度、重量等。每一种的计费逻辑都是不同的。但是这些商品的价格组成部分又有一些相同的组成部分，例如：运费，优惠券减扣，积分减扣等。为每一种计价方式的商品写一份同样的通用价格优惠代码是非常令人感到折磨的。在这个时候委托模式就可以解决我们的问题。
+
+&emsp;首先我们定义一个`Calculable`接口，里面的`getPrice`方法用于计算所购商品的价格。因为每种商品的价格计算方式不一样所以是抽象方法。将这个价格与积分减扣、优惠券减扣、运费相加就可以得到用户最终需要支付的金额。
+
+``` Kotlin
+interface Calculable<T : Number>{
+
+    /**
+    *   @param qty 单位数量
+    *   @return 价格
+    */
+    fun getPrice(qty: T): Double
+}
+```
+
+&emsp;接下来是我们的通用价格计算类
+
+```Kotlin
+
+/**
+ * 使用 by 将 GenericPriceService需要实现的getPrice方法交basePriceCalculateFunction 实现
+ *
+ */
+class GenericPriceService<T : Number>(private val basePriceCalculateFunction: Calculable<T>): Calculable<T> by basePriceCalculateFunction{
+
+    //模拟运费计算
+    private fun getExpressFee(): Double{
+        return 18.0
+    }
+
+    //模拟优惠券减扣
+    private fun getCouponDiscount(): Double{
+        return -10.0;
+    }
+
+    //模拟积分减扣
+    private fun pointDiscount(): Double{
+        return -3.0;
+    }
+
+    fun getTotalPrice(qty: T): Double {
+
+        val totalPrice = basePriceCalculateFunction.getPrice(qty) + getExpressFee() + getExpressFee() + getCouponDiscount() + pointDiscount()
+        return totalPrice
+    }
+
+}
+```
+
+&emsp;在这之后就是我们实际使用场景。
+
+```Kotlin
+//省略无关内容
+fun main(){
+
+    //定义一个专用于计算iPhone价格的匿名内部类, iPhone按个卖，所以qty是Int
+   val iPhonePriceFunction = object : Calculable<Int>{
+
+        override fun getPrice(qty: Int): Double {
+            return 9999.0 * qty
+        }
+    }
+
+    //定义一个专用于计算面料的匿名内部类，面料可以按长度卖，长度有小数，所以用Double
+    val silksPriceFunction = object : Calculable<Double>{
+        override fun getPrice(qty: Double): Double {
+
+            return 99.0 * qty
+        }
+    }
+
+
+    //模拟触发用户下单
+
+    //一台iPhone
+    val iPhonePriceService = GenericPriceService(iPhonePriceFunction)
+    val silksPriceService = GenericPriceService(silksPriceFunction)
+
+    //假定有Silks，iPhone两个class都继承于Goods
+    // 接收下单商品
+    val orderItems = listOf<Goods>()
+
+    var totalPrice: Double = 0
+
+    orderItems.forEach{ item->
+        when(item){
+            item is Silks -> totalPrice += silksPriceService.getTotalPrice(item.length)
+
+            item is iPhone -> totalPrice += iPhonePriceService.getTotalPrice(item.length)
+            else -> throw RuntimeException("未知商品类型")
+        }
+    }
+
+    println(totalPrice)
+
+}
+```
+
+&emsp;通过使用委托模式，我们可以将通用的价格计算逻辑与具体商品的价格计算逻辑分离，避免代码重复，提高代码的灵活性和可维护性。具体实现时，我们为不同商品类型创建专门的价格计算类，并在通用价格服务类中使用泛型处理不同商品的价格计算，从而实现了一个灵活且可扩展的价格计算框架。
 
 ### 委托的优势
 
