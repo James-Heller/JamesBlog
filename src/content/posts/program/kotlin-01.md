@@ -3,7 +3,7 @@ title: 启示：委托模式
 published: 2024-06-25
 description: ''
 image: ''
-tags: ['编程', '设计模式','Kotlin',]
+tags: ['编程', '设计模式','kotlin',]
 category: 'Web开发'
 draft: false 
 ---
@@ -12,13 +12,13 @@ draft: false
 
 ## 什么是委托模式
 
-&emsp;作为一个狂热的Kotlin粉丝， 在工作摸鱼或者是闲暇时间研究Kotlin是我的乐趣所在。 今日在网上冲浪时看到一个关于Kotlin高级特性的文章。其中提到了关键字 `by`。 这引起了我的兴趣，经过相关搜索，我发现by是用于实现委托的关键字。
+&emsp;作为一个狂热的kotlin粉丝， 在工作摸鱼或者是闲暇时间研究kotlin是我的乐趣所在。 今日在网上冲浪时看到一个关于kotlin高级特性的文章。其中提到了关键字 `by`。 这引起了我的兴趣，经过相关搜索，我发现by是用于实现委托的关键字。
 &emsp;那么问题就来了，什么是委托？
 ***在面向对象编程中，设计模式是帮助我们解决常见问题的模板。委托模式就是设计模式其中的一种。***
 
 ### 委托模式的核心
 
-&emsp;Kotlin的委托模式基于一个简单的原则：***“不要自己重复做，让别人帮你做。”*** 具体到编程，就是让一个对象接收一个接口的实现，并将接口方法的调用委托给另一个对象。
+&emsp;kotlin的委托模式基于一个简单的原则：***“不要自己重复做，让别人帮你做。”*** 具体到编程，就是让一个对象接收一个接口的实现，并将接口方法的调用委托给另一个对象。
 
 ### 委托模式能做什么
 
@@ -72,7 +72,7 @@ class FileLogger(private val logger: Logger) : Logger by logger {
 
 &emsp;首先我们定义一个`Calculable`接口，里面的`getPrice`方法用于计算所购商品的价格。因为每种商品的价格计算方式不一样所以是抽象方法。将这个价格与积分减扣、优惠券减扣、运费相加就可以得到用户最终需要支付的金额。
 
-``` Kotlin
+``` kotlin
 interface Calculable<T : Number>{
 
     /**
@@ -85,7 +85,7 @@ interface Calculable<T : Number>{
 
 &emsp;接下来是我们的通用价格计算类
 
-```Kotlin
+```kotlin
 
 /**
  * 使用 by 将 GenericPriceService需要实现的getPrice方法交basePriceCalculateFunction 实现
@@ -119,7 +119,7 @@ class GenericPriceService<T : Number>(private val basePriceCalculateFunction: Ca
 
 &emsp;在这之后就是我们实际使用场景。
 
-```Kotlin
+```kotlin
 //省略无关内容
 fun main(){
 
@@ -176,4 +176,4 @@ fun main(){
 
 ### 结语
 
-Kotlin的委托模式提供了一种强大的方法来扩展和增强现有的代码。无论是添加日志功能，还是引入新的行为，委托都能以最小的代价来实现功能的增强。通过这种模式，Kotlin开发者可以编写出更清晰、更灵活、更易于维护的代码。
+kotlin的委托模式提供了一种强大的方法来扩展和增强现有的代码。无论是添加日志功能，还是引入新的行为，委托都能以最小的代价来实现功能的增强。通过这种模式，kotlin开发者可以编写出更清晰、更灵活、更易于维护的代码。
