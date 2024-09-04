@@ -165,6 +165,7 @@ private fun parseFactor(): BigDecimal{
 在教科书中一般将文法写为：G = (V, **ε**，R，S)。其中我们关注点在S上，列：
 
 > S -> T + S | T - S | T
+> 
 > T -> T * T | T / T | (S) | x | y | z
 
 在上述文法就可以产生我们所需要的算式( x + y ) * x - z * y / ( x + x )。 S可以有T组成，T可以由 T的乘除法，括号内的完整算式S或者数字x，y，z。
@@ -208,7 +209,7 @@ private fun parseExpression(): BigDecimal{
 
 ---
 
-- **A方法 **
+- **A方法**
 
   - 首先调用B方法并将返回值用变量`result`接收。
 
@@ -251,7 +252,7 @@ private fun parseExpression(): BigDecimal{
 
 对于我们人类来讲，括号内的算式会被我们优先计算，用括号内的算式的最终值来参与剩下部分的计算。同时括号内可能会出现所有的四则运算，所以我们可以将其看作是一个子表达式，我们可以先将子表达式的结果算出来再进行剩余的表达式计算。且子表达式代表着外层表达式的一个被操作数A 或者 B ，那么我们就能分析出对子表达式的处理应该在处理数字的`parseFactor()` 方法中。 
 
-*** 改造前面的parseFactor() 方法使其可以处理子表达式为单纯的值。***
+***改造前面的parseFactor() 方法使其可以处理子表达式为单纯的值。***
 
 ```kotlin
 private fun parseFactor(): BigDecimal{
