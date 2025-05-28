@@ -2,7 +2,6 @@
 title: Java泛型擦除下的MyBatis TypeHandler挑战与解决方案
 published: 2024-06-20
 description: 探讨在使用Mybatis时遇到的TypeHandler与List相关的问题及解决方案
-image: ./mybatis-superbird-small.png
 tags: ['编程','Kotlin', 'MyBatis','MyBatisPlus']
 category: 'Web开发'
 draft: false 
