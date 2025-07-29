@@ -4,7 +4,7 @@ published: 2025-07-24
 description: '我是人，还是工具'
 image: ''
 tags: ['社科']
-category: ''
+category: '个人见解'
 draft: false 
 lang: ''
 ---
