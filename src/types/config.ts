@@ -38,6 +38,7 @@ export enum LinkPreset {
 	Home = 0,
 	Archive = 1,
 	About = 2,
+	Friends = 3,
 }
 
 export type NavBarLink = {
@@ -85,4 +86,12 @@ export type BlogPostData = {
 	prevSlug?: string;
 	nextTitle?: string;
 	nextSlug?: string;
+};
+
+export type FriendLink = {
+	title: string;
+	imgurl: string;
+	desc: string;
+	siteurl: string;
+	tags?: string[];
 };
