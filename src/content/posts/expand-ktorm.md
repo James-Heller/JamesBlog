@@ -15,7 +15,7 @@ lang: ''
 
 ## 目标
 
-Ktorm 是一个轻量级的 Kotlin ORM 框架，提供了强大的 DSL 查询能力和实体映射功能。然而，在实际项目中，我们常常需要为数据库表添加一些通用的字段（如 id、createTime、updateTime、deleted 等）以及通用的增删改查逻辑。为了减少重复代码并提高开发效率，我设计并实现了一个基于 Ktorm 的扩展框架，包含 `EnhanceEntity `接口和 `EnhanceTable`抽象类。本文将详细介绍这一扩展的设计思路、实现细节以及使用方法。
+Ktorm 是一个轻量级的 Kotlin ORM 框架，提供了强大的 DSL 查询能力和实体映射功能。然而，在实际项目中，我们常常需要为数据库表添加一些通用的字段（如 id、createTime、updateTime、deleted 等）以及通用的增删改查逻辑。为了减少重复代码并提高开发效率，我设计并实现了一个基于 Ktorm 的扩展框架，包含 `EnhanceEntity` 接口和 `EnhanceTable` 抽象类。本文将详细介绍这一扩展的设计思路、实现细节以及使用方法。
 
 ## 核心实现
 
@@ -80,7 +80,7 @@ object Fabrics : EnhanceTable<Fabric>("fabrics") {
 }
 ```
 
-测试表明，如果在 EnhanceTable 中提供默认 sequence 实现（如 get() = DB.pg.sequenceOf(this)），Ktorm 生成的 EntitySequence 只会包含基类的字段（id、deleted 等），而子类的业务字段（如 name）会被忽略。这是因为基类中的 this 被解析为 EnhanceTable<E> 类型，而不是子类类型（如 Fabrics）。
+测试表明，如果在 EnhanceTable 中提供默认 sequence 实现（如 get() = DB.pg.sequenceOf(this)），Ktorm 生成的 EntitySequence 只会包含基类的字段（id、deleted 等），而子类的业务字段（如 name）会被忽略。这是因为基类中的 this 被解析为 `EnhanceTable<E>` 类型，而不是子类类型（如 Fabrics）。
 
 通过在子类中覆盖 sequence，DB.pg.sequenceOf(this) 使用子类的具体类型，确保所有字段被正确包含。getSequence 方法进一步封装了对 sequence 的访问，避免直接操作属性，并通过 @JvmName("get-sequence") 注解解决 JVM 命名冲突问题。
 
