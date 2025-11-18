@@ -18,7 +18,15 @@ if (!friendsPost) {
 const { Content } = await render(friendsPost);
 
 // You can put your links here
-const items: FriendLink[] = [];
+const items: FriendLink[] = [  {
+    title: "葱苓小筑",
+    siteurl: "https://blog.ciraos.top",
+    imgurl: "https://blog.ciraos.top/api/f/RgeK/avatar1.avif",
+    desc: "Don't worry, be happy.",
+    tags: ["Tech", "Astro", "Frontend"], // 可选：根据实际情况调整标签
+    rss: "https://blog.ciraos.top/atom.xml",
+    siteshot: "https://blog.ciraos.top/api/f/AMss/siteshot.png"
+  }];
 ---
 <MainGridLayout title={i18n(I18nKey.friends)} description={i18n(I18nKey.friends)}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
